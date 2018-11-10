@@ -53,4 +53,54 @@ public class HelloController {
     public String goodbye() {
         return "redirect:/";
     }
-}
+    @RequestMapping(value = "lang", method = RequestMethod.GET)
+    @ResponseBody
+    public String langForm(){
+
+        String html = "<form method='post'>" +
+                "<input type='text' name='name' />" +
+                "<select name='select'>" + "<option value='English' name='English'>English</option>" +
+                "<option value='Spanish'>Spanish</option>" +
+                "<option value='French'>French</option>" +
+                "<option value='Italian'>Italian</option>" +
+                "<option value='German'>German</option>" +
+                "<input type='submit' value='Greet Me!' />" +
+                "</form>";
+
+        return html;
+
+    }
+
+    @RequestMapping(value = "lang", method = RequestMethod.POST)
+    @ResponseBody
+    public String langPost(HttpServletRequest request){
+
+        String name = request.getParameter("name");
+        String select = request.getParameter("select");
+        String greeting = "";
+
+        switch (select){
+            case "English":
+                greeting = "Hello ";
+                break;
+            case "Spanish":
+                greeting = "Hola ";
+                break;
+            case "French":
+                greeting = "Bonjour ";
+                break;
+            case "Italian":
+                greeting = "Ciao ";
+                break;
+            case "German":
+                greeting = "Hallo ";
+                break;
+        }
+
+
+        return greeting + name;
+        }
+
+
+
+    }
